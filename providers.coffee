@@ -57,6 +57,28 @@ class FakeProvider extends EventEmitter
 class RedisProvider extends EventEmitter
   constructor: (config) ->
     super()
+    @server = config.server
+    @port = config.port ? 6379
+    @dbNum = config.dbNum ? 0
+    @channel = config.channel
+
+    @redis = redis.createClient @port, @server
+    @redis.on 'message', @handleMessage
+    @redis.subscribe @channel
+
+  handleMessage: (channel, msg) =>
+    json = JSON.parse(msg)
+    geos = (@getGeo(ip) for ip in json.user_data)
+    geos = (geo for geo in geos when geo isnt null)
+    json.coordinates = geos
+    @emit 'activity', json
+
+  getGeo: (ip) =>
+    ip = geoip.lookup(ip)
+    if ip?.ll?
+      { lat: ip.ll[0], lng: ip.ll[1] }
+    else
+      null
 
 # Key names here represent the 'type' configuration option
 # in config.toml
