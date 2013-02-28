@@ -64,6 +64,7 @@ class ActivityList
       .on('click', vis.firePings)
     items.enter()
       .insert('p', ':first-child')
+      .on('click', vis.firePings)
       .attr('class', 'item')
       .style('opacity', '0')
       .text (d) ->
@@ -71,7 +72,6 @@ class ActivityList
       .transition()
       .duration(500)
       .style('opacity', '1')
-      .on('click', vis.firePings)
     items.exit().remove()
 
 class Visualization
