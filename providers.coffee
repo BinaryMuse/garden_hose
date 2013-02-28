@@ -1,7 +1,7 @@
 {EventEmitter} = require 'events'
 redis = require 'redis'
 geoip = require 'geoip-lite'
-Faker = require 'faker'
+Faker = require 'Faker'
 
 # A Provider is a class that emits 'activity' events. The only
 # parameter to that event should be an item that represents that
