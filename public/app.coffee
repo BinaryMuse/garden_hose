@@ -71,6 +71,7 @@ class ActivityList
       .transition()
       .duration(500)
       .style('opacity', '1')
+      .on('click', vis.firePings)
     items.exit().remove()
 
 class Visualization
