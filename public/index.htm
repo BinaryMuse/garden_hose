@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script type='text/javascript' src="/socket.io/socket.io.js"></script>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type='text/javascript' src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="polymaps.js"></script>
+    <script type="text/coffeescript" src="map.coffee"></script>
+    <script type="text/coffeescript" src="app.coffee"></script>
+    <style>
+      body {
+        margin: 0; padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      #list {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        overflow: hidden;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 150px;
+      }
+
+      #list p {
+        text-align: center;
+        color: white;
+        margin: 0;
+        padding: 6px 0;
+        font-size: 16px;
+        line-height: 16px;
+      }
+
+      #list .item {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='map'>
+      <div id='list'>
+        <p><strong>Latest Activity</strong></p>
+        <div class='items'></div>
+      </div>
+    </div>
+  </body>
+</html>

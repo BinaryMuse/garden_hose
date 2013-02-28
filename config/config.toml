@@ -1,0 +1,21 @@
+[fake]
+type = "fake"
+  [fake.config]
+  minFrequency = 1000
+  maxFrequency = 5000
+  minItems = 10
+  maxItems = 20
+
+[development]
+type = "redis"
+  [development.config]
+  server = "127.0.0.1"
+  dbNum = 0
+  channel = "AF:All"
+
+[production]
+type = "redis"
+  [production.config]
+  server = "127.0.0.1"
+  dbNum = 1
+  channel = "AF:All"
