@@ -43,7 +43,7 @@ class FakeSource extends ActivitySource
     @fire item
 
 class ActivityList
-  constructor: (@selector) ->
+  constructor: (@selector, @visualization) ->
     @data = []
 
   add: (item) =>
@@ -52,6 +52,7 @@ class ActivityList
     @update()
 
   update: (item) =>
+    vis = @visualization
     items = d3.select(@selector).select('.items').selectAll('.item')
       .data @data, (d) ->
         if d.__key
@@ -60,6 +61,7 @@ class ActivityList
           d.__key = String(Math.random())
       .text (d) ->
         d.object.title
+      .on('click', vis.firePings)
     items.enter()
       .insert('p', ':first-child')
       .attr('class', 'item')
@@ -74,7 +76,7 @@ class ActivityList
 class Visualization
   constructor: ->
     @map = new Map('#map')
-    @activityList = new ActivityList('#list')
+    @activityList = new ActivityList('#list', this)
     @source = if window.io then new SocketIOSource() else new FakeSource()
     @source.register @onData
 
@@ -84,11 +86,15 @@ class Visualization
     ]
 
   onData: (data) =>
-    @activityList.add data
     colors = ['green', 'red', 'yellow', 'cyan']
     color = colors[Math.floor(Math.random() * colors.length)]
+    data.__color = color
+    @activityList.add data
+    @firePings(data)
+
+  firePings: (data) =>
     for coord in data.coordinates
-      @ping(coord.lat, coord.lng, color)
+      @ping(coord.lat, coord.lng, data.__color)
 
   ping: (lat, lng, color) =>
     zoom = @map.map.zoom()
