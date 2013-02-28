@@ -16,6 +16,6 @@ type = "redis"
 [production]
 type = "redis"
   [production.config]
-  server = "10.104.43.200"
+  server = "10.111.35.208"
   dbNum = 0
   channel = "AF:All"
