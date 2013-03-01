@@ -60,7 +60,7 @@ class ActivityList
         else
           d.__key = String(Math.random())
       .text (d) ->
-        d.object.title
+        "#{d.object.title} (#{d.coordinates.length})"
       .on('click', vis.firePings)
     items.enter()
       .insert('p', ':first-child')
@@ -68,7 +68,7 @@ class ActivityList
       .attr('class', 'item')
       .style('opacity', '0')
       .text (d) ->
-        d.object.title
+        "#{d.object.title} (#{d.coordinates.length})"
       .transition()
       .duration(500)
       .style('opacity', '1')
